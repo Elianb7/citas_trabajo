@@ -1,0 +1,76 @@
+﻿@using Modelo.Entidades;
+@model IEnumerable<Medico>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Empleados</h1>
+
+<p>Se presenta a continuación la lista de Empleados registrados en el Sistema de Citas de tabajao Constructora Laymicer</p>
+
+<div class="container">
+    @if (TempData["mensaje"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            @TempData["mensaje"]
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">
+                <span aria-hidden="true">
+                    &times;
+                </span>
+            </button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-sm-6">
+            <h3>Lista de Empleados</h3>
+        </div>
+        <div class="col-sm-6">
+            <a class="btn btn-success d-block"
+               asp-controller="Medicos" asp-action="Create">
+                Crear Nuevo Empleado
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <td> No. Cédula </td>
+                    <td> Nombre </td>
+                    <td> Telefono </td>
+                    <td> Correo </td>
+                    <td> EspecialidadId </td>
+                    <td> Acciones </td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Medico medico in Model)
+                {
+                <tr>
+                    <td> @medico.Cedula </td>
+                    <td> @medico.Nombre </td>
+                    <td> @medico.Telefono </td>
+                    <td> @medico.Email </td>
+                    <td> @medico.EspecialidadId </td>
+
+
+                    <td>
+                        <a class="btn btn-warning"
+                           asp-controller="Medicos" asp-action="Edit" asp-route-id="@medico.MedicoId">
+                            Editar
+                        </a>
+                        <a class="btn btn-danger"
+                           asp-controller="Medicos" asp-action="Delete" asp-route-id="@medico.MedicoId">
+                            Borrar
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
